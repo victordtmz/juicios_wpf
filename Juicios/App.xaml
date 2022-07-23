@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:Juicios"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
-    </Application.Resources>
+		<Style x:Key="DataGridSelectedCellStyle" TargetType="DataGridCell">
+			<Setter Property="BorderBrush" Value="Blue" />
+		</Style>
+
+	</Application.Resources>
 </Application>

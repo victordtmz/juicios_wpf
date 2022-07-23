@@ -7,4 +7,25 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="enlace.ico" />
+    <None Remove="enlace.png" />
+    <None Remove="enlace_balance.ico" />
+    <None Remove="Images\enlace.ico" />
+    <None Remove="Images\enlace.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\enlace.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\enlace.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="enlace.ico" />
+    <Resource Include="enlace.png" />
+    <Resource Include="enlace_balance.ico" />
+  </ItemGroup>
+
 </Project>
