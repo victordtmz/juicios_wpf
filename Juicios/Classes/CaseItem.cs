@@ -2,8 +2,8 @@
 {
 	public class CaseItem
 	{
-		protected string _type;
-		protected string _name;
+		protected string _type = "Civil";
+		protected string _name = "Expediente";
 		protected bool _active = true;
 
 		public string type { get { return _type; } set { _type = value; } }
