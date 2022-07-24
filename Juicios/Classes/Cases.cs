@@ -5,39 +5,54 @@ using System.IO;
 
 namespace Juicios.Classes
 {
+	
+
+
 	internal class Cases
 	{
-		public static void Temp(string[] args)
+		//protected string _userFolder { get; set; }
+		//public string UserFolder 
+		//{ 
+		//	get 
+		//	{ 
+		//		return _userFolder; 
+		//	} 
+		//	set 
+		//	{
+		//		_userFolder = value;
+		//	} 
+		//}
+
+		public List<CaseItem> GetCases()
 		{
-			string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-			string activosFolder = userFolder + @"\OneDrive\enlace\Juicios\";
-			string inactivosFolder = userFolder + @"\OneDrive\enlace\Juicios_archivados\";
-			string[] activosCategoriePathList = Directory.GetDirectories(activosFolder);
-			string[] inactivosCategoriePathList = Directory.GetDirectories(inactivosFolder);
 			List<CaseItem> Expedientes = new List<CaseItem>();
-
-		Populate(ref Expedientes, activosCategoriePathList);
-			Populate(ref Expedientes, inactivosCategoriePathList, false);
-			foreach (CaseItem expediente in Expedientes)
-			{
-				Console.WriteLine($"Expediente: {expediente.name}, tipo: {expediente.type}, activo: {expediente.active}");
-			}
-		}
-
-
-		static void Populate(ref List<CaseItem> Expedientes, string[] categoriesList, bool active = true)
-		{
-
-
-			foreach (string path in categoriesList)
+			Constants constants = new Constants();
+			string UserFolder = constants.GetUserFolder();
+			string activosFolder = UserFolder + Constants.activosFolder;
+			string inactivosFolder = UserFolder + Constants.inactivosFolder;
+			string[] activosCategoriePathList = constants.GetDirectories(activosFolder);
+			string[] inactivosCategoriePathList = constants.GetDirectories(inactivosFolder);
+			foreach (string path in activosCategoriePathList)
 			{
 				var type = new DirectoryInfo(path).Name;
-				foreach (string dir in Directory.GetDirectories(path))
+				foreach (string dir in constants.GetDirectories(path))
 				{
 					var name = new DirectoryInfo(dir).Name;
-					Expedientes.Add(new CaseItem(type, name, active));
+					Expedientes.Add(new CaseItem(type, name, true));
 				}
 			}
+			foreach (string path in inactivosCategoriePathList)
+			{
+				var type = new DirectoryInfo(path).Name;
+				foreach (string dir in constants.GetDirectories(path))
+				{
+					var name = new DirectoryInfo(dir).Name;
+					Expedientes.Add(new CaseItem(type, name, false));
+				}
+			}
+			return Expedientes;
+
+
 		}
 	}
 }

@@ -19,72 +19,285 @@ using System.ComponentModel;
 
 namespace Juicios
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public List<CaseItem> Cases { get; set; }
-		public ICollectionView CasesView { get; set; }
-			//Expedientes = new List<CaseItem>();
+		public List<CaseItem> CasesList { get; set; }
+		string UserFolder { get; set; }
+		string EnlaceFolder { get; set; }
+		string JuiciosActivos{ get; set; }
+		string JuiciosInactivos { get; set; }
+		//string Juicios
 		public MainWindow()
 		{
-			Cases = GetCases();
-			
-			//CasesView.Filter(CasesView,true);
-			CasesView = CollectionViewSource.GetDefaultView(Cases);
-			
-			
+			Cases cases = new Cases();
+			Constants constants = new Constants();
+			UserFolder = constants.GetUserFolder();
+			JuiciosActivos = EnlaceFolder + Constants.enlaceFolder;
+			JuiciosActivos = UserFolder + Constants.activosFolder;
+			JuiciosInactivos = UserFolder + Constants.activosFolder;
+
+			CasesList = cases.GetCases();
 			InitializeComponent();
-			//var Cases = this.Cases;
-			ExpedientesList.ItemsSource = CasesView;
-			//foreach(CaseItem item in Cases)
-			//{
-
-			//ExpedientesList.Items.Add(item);
-			//}
-
+			ExpedientesList.ItemsSource = CasesList;
 		}
-		//private List<CaseItem> GetCases()
-		private List<CaseItem> GetCases()
+
+		private bool ExpedienteFilter(object obj)
 		{
-			List<CaseItem> Expedientes = new List<CaseItem>();
-			string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-			string activosFolder = userFolder + @"\OneDrive\enlace\Juicios\";
-			string inactivosFolder = userFolder + @"\OneDrive\enlace\Juicios_archivados\";
-			string[] activosCategoriePathList = Directory.GetDirectories(activosFolder);
-			string[] inactivosCategoriePathList = Directory.GetDirectories(inactivosFolder);
-			foreach (string path in activosCategoriePathList)
+			string searchValue = SearchBox.Text;
+			var FilteredObj = obj as CaseItem;
+			if (FilteredObj != null)
 			{
-				var type = new DirectoryInfo(path).Name;
-				foreach (string dir in Directory.GetDirectories(path))
-				{
-					var name = new DirectoryInfo(dir).Name;
-					Expedientes.Add(new CaseItem(type, name, true));
-				}
+				string Name = FilteredObj.Name;
+				return Name.Contains(searchValue, StringComparison.OrdinalIgnoreCase);
 			}
-			foreach (string path in inactivosCategoriePathList)
-			{
-				var type = new DirectoryInfo(path).Name;
-				foreach (string dir in Directory.GetDirectories(path))
-				{
-					var name = new DirectoryInfo(dir).Name;
-					Expedientes.Add(new CaseItem(type, name, false));
-				}
-			}
-			return Expedientes;
-
-
+			else { return false; }
 		}
+
+		private string GetSelectedCasePath()
+		{
+			CaseItem caseItem = (CaseItem)ExpedientesList.SelectedItem;
+			if(caseItem == null)
+			{
+				return EnlaceFolder;
+			}
+			string type = caseItem.Type;
+			string name = caseItem.Name;
+			bool active = caseItem.Active;
+			string root;
+			if (active)
+			{
+				root = JuiciosActivos;
+			}
+			else
+			{
+				root = JuiciosInactivos;
+			}
+			string path = root + type + @"\" + name;
+			return path;
+		}
+
 
 		private void ExpedientesList_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
 		{
 
 		}
 
+		
 		private void ExpedientesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			string path = GetSelectedCasePath();
+			if (String.IsNullOrEmpty(path)){
+				path = JuiciosActivos;
+			}
+			FilesTreeBrowser.Source = new Uri(path);
+			TxtWebBrowserSource.Text = path;
+		}
 
+
+		private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			 
+			if (string.IsNullOrEmpty(SearchBox.Text))
+			{
+				ExpedientesList.Items.Filter = null;
+
+			}
+			else
+			{
+				ExpedientesList.Items.Filter = ExpedienteFilter;
+			}
+			
+		}
+
+		private void BtnClearSearch_Click(object sender, RoutedEventArgs e)
+		{
+			SearchBox.Text = string.Empty;
+		}
+		
+		
+		private string GetWebBrowserPath()
+		{
+			string startPath = GetSelectedCasePath();
+			if (!string.IsNullOrEmpty(startPath))
+			{
+				string browserSource = FilesTreeBrowser.Source.ToString();
+				browserSource = browserSource.Replace(@"file:///", "");
+				browserSource = browserSource.Replace(@"/", @"\");
+				browserSource = browserSource.Replace(startPath, "");
+				return browserSource;
+			}
+			return string.Empty;
+
+		}
+		private void FilesTreeBrowser_LoadCompleted(object sender, NavigationEventArgs e)
+		{
+			//Always verify visibility of all items is collapsed
+			TxtWebBrowserSource.Text = FilesTreeBrowser.Source.ToString();
+			BtnWebBrowser5.Visibility = Visibility.Collapsed;
+			BtnWebBrowser4.Visibility = Visibility.Collapsed;
+			BtnWebBrowser3.Visibility = Visibility.Collapsed;
+			BtnWebBrowser2.Visibility = Visibility.Collapsed;
+			BtnWebBrowser1.Visibility = Visibility.Collapsed;
+			TxtWebBrowser5.Visibility = Visibility.Collapsed;
+			TxtWebBrowser4.Visibility = Visibility.Collapsed;
+			TxtWebBrowser3.Visibility = Visibility.Collapsed;
+			TxtWebBrowser2.Visibility = Visibility.Collapsed;
+			TxtWebBrowser1.Visibility = Visibility.Collapsed;
+			
+			string source = GetWebBrowserPath();
+			source = source.TrimStart('\\');
+			if (!string.IsNullOrEmpty(source))
+			{
+				string[] sourceparts = source.Split(@"\");
+				int len = sourceparts.Length;
+				switch (len)
+				{
+					case >= 5:
+						BtnWebBrowser5.Visibility = Visibility.Visible;
+						BtnWebBrowser5.Content = sourceparts[4];
+						TxtWebBrowser5.Visibility = Visibility.Visible;
+						goto case 4;
+					case 4:
+						BtnWebBrowser4.Visibility = Visibility.Visible;
+						BtnWebBrowser4.Content = sourceparts[3];
+						TxtWebBrowser4.Visibility = Visibility.Visible;
+						goto case 3;
+
+					case 3:
+						BtnWebBrowser3.Visibility = Visibility.Visible;
+						BtnWebBrowser3.Content = sourceparts[2];
+						TxtWebBrowser3.Visibility = Visibility.Visible;
+						goto case 2;
+				
+					case 2:
+						BtnWebBrowser2.Visibility = Visibility.Visible;
+						BtnWebBrowser2.Content = sourceparts[1];
+						TxtWebBrowser2.Visibility = Visibility.Visible;
+						goto case 1;
+				
+					case 1:
+						BtnWebBrowser1.Visibility = Visibility.Visible;
+						BtnWebBrowser1.Content = sourceparts[0];
+						TxtWebBrowser1.Visibility = Visibility.Visible;
+						break;
+				}
+				
+				SolidColorBrush orangeBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(Constants.OrangeCustom);
+				SolidColorBrush blueBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(Constants.LightBlueCustom);
+				BtnWebBrowser5.Foreground = blueBrush;
+				BtnWebBrowser4.Foreground = blueBrush;
+				BtnWebBrowser3.Foreground = blueBrush;
+				BtnWebBrowser2.Foreground = blueBrush;
+				BtnWebBrowser1.Foreground = blueBrush;
+				switch (len)
+				{
+					case 5:
+						BtnWebBrowser5.Foreground = orangeBrush;
+						break;
+					case 4:
+						BtnWebBrowser4.Foreground = orangeBrush;
+						break;
+
+					case 3:
+						BtnWebBrowser3.Foreground = orangeBrush;
+						break;
+
+					case 2:
+						BtnWebBrowser2.Foreground = orangeBrush;
+						break;
+
+					case 1:
+						BtnWebBrowser1.Foreground = orangeBrush;
+						break;
+				}
+
+
+
+			}
+			
+		}
+
+		private void BtnWebBrowserInicio_Click(object sender, RoutedEventArgs e)
+		{
+			string path = GetSelectedCasePath();
+			FilesTreeBrowser.Source = new Uri(path);
+		}
+
+		private void BtnWebBrowser1_Click(object sender, RoutedEventArgs e)
+		{
+			//source => relative path of Selected path
+			string source = GetWebBrowserPath();
+			source = source.TrimStart('\\');
+			//path => root path for current case
+			string path = GetSelectedCasePath();
+			if (!string.IsNullOrEmpty(source) && !string.IsNullOrEmpty(path))
+			{
+				string[] sourceparts = source.Split(@"\");
+				//this is Button 1, only add 1 element to path
+				string newPath = path + @"\" + sourceparts[0];
+				FilesTreeBrowser.Source = new Uri(newPath);
+			}
+		}
+
+		private void BtnWebBrowser2_Click(object sender, RoutedEventArgs e)
+		{
+			//source => relative path of Selected path
+			string source = GetWebBrowserPath();
+			source = source.TrimStart('\\');
+			//path => root path for current case
+			string path = GetSelectedCasePath();
+			if (!string.IsNullOrEmpty(source) && !string.IsNullOrEmpty(path))
+			{
+				string[] sourceparts = source.Split(@"\");
+				string newPath = path + @"\" + sourceparts[0] + @"\" + sourceparts[1];
+				FilesTreeBrowser.Source = new Uri(newPath);
+			}
+
+		}
+
+		private void BtnWebBrowser3_Click(object sender, RoutedEventArgs e)
+		{
+			//source => relative path of Selected path
+			string source = GetWebBrowserPath();
+			source = source.TrimStart('\\');
+			//path => root path for current case
+			string path = GetSelectedCasePath();
+			if (!string.IsNullOrEmpty(source) && !string.IsNullOrEmpty(path))
+			{
+				string[] sourceparts = source.Split(@"\");
+				string newPath = path + @"\" + sourceparts[0] + @"\" + sourceparts[1] + @"\" + sourceparts[2];
+				FilesTreeBrowser.Source = new Uri(newPath);
+			}
+		}
+
+		private void BtnWebBrowser4_Click(object sender, RoutedEventArgs e)
+		{
+			//source => relative path of Selected path
+			string source = GetWebBrowserPath();
+			source = source.TrimStart('\\');
+			//path => root path for current case
+			string path = GetSelectedCasePath();
+			if (!string.IsNullOrEmpty(source) && !string.IsNullOrEmpty(path))
+			{
+				string[] sourceparts = source.Split(@"\");
+				string newPath = path + @"\" + sourceparts[0] + @"\" + sourceparts[1] + @"\" + sourceparts[2] + @"\" + sourceparts[3];
+				FilesTreeBrowser.Source = new Uri(newPath);
+			}
+		}
+
+		private void BtnWebBrowser5_Click(object sender, RoutedEventArgs e)
+		{
+			//source => relative path of Selected path
+			string source = GetWebBrowserPath();
+			source = source.TrimStart('\\');
+			//path => root path for current case
+			string path = GetSelectedCasePath();
+			if (!string.IsNullOrEmpty(source) && !string.IsNullOrEmpty(path))
+			{
+				string[] sourceparts = source.Split(@"\");
+				string newPath = path + @"\" + sourceparts[0] + @"\" + sourceparts[1] + @"\" + sourceparts[2] + @"\" + sourceparts[3] + @"\" + sourceparts[4];
+				FilesTreeBrowser.Source = new Uri(newPath);
+			}
 		}
 	}
 }

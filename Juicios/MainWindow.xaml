@@ -4,23 +4,14 @@
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:local="clr-namespace:Juicios"
-				mc:Ignorable="d"
-				Title="ENLACE LLC - JUICIOS"
-				Icon="/enlace_balance.ico"
-				WindowState="Maximized"
+				xmlns:controls="clr-namespace:Juicios.userControls"
+				mc:Ignorable="d" Title="ENLACE LLC - JUICIOS" Icon="pack://siteoforigin:,,,/Images/enlace_balance.ico" WindowState="Maximized"
 				Height="450"
 				Width="800">
 	<Window.Resources>
 		<!-- DataGrid style -->
-		<Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
-			<Setter Property="CellStyle" Value="{DynamicResource DataGridSelectedCellStyle}" />
-			<Setter Property="CellStyle" Value="{DynamicResource DataGridCellStyle}" />
-		</Style>
-		<Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
-			<Setter Property="FontSize" Value="14" />
-			<!--The border thikness sets the margins-->
-			<Setter Property="BorderThickness" Value="10" />
-		</Style>
+		
+		
 	</Window.Resources>
 
 	<Grid>
@@ -29,57 +20,114 @@
 			<ColumnDefinition Width="1*" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="20" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
-			<StackPanel.Resources>
-				<Style TargetType="{x:Type Button}">
-					<Setter Property="Margin"
-									Value="5,0" />
-				</Style>
-			</StackPanel.Resources>
-			<Button Content="Refresh" />
-			<Button Content="Abrir Carpeta" />
-			<Button Content="Nuevo" />
-			<Button Content="Eliminar" />
-			<Button Content="Editar" />
-			<Button Content="Detalles" />
+		<StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Background="{StaticResource DarkBlueCustom}">
+
+			<Button x:Name="BtnRefresh">
+				<StackPanel Orientation="Horizontal">
+					<Image Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Images/Icons/refresh.png" Width="18"></Image>
+					<TextBlock>Refresh</TextBlock>
+				</StackPanel>
+			</Button>
+			<Button x:Name="BtnOpen">
+				<StackPanel Orientation="Horizontal">
+					<Image Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Images/Icons/openFolder.png" Width="18"></Image>
+					<TextBlock>Abrir Carpeta</TextBlock>
+				</StackPanel>
+			</Button>
+			<Button x:Name="BtnNew">
+				<StackPanel Orientation="Horizontal">
+					<Image Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Images/Icons/add.png" Width="18"></Image>
+					<TextBlock>Nuevo</TextBlock>
+				</StackPanel>
+			</Button>
+			<Button x:Name="BtnDelete">
+				<StackPanel Orientation="Horizontal">
+					<Image Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Images/Icons/trash.png" Width="18"></Image>
+					<TextBlock>Eliminar</TextBlock>
+				</StackPanel>
+			</Button>
+			<Button x:Name="BtnEdit">
+				<StackPanel Orientation="Horizontal">
+					<Image Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Images/Icons/pencil.png" Width="18"></Image>
+					<TextBlock>Editar</TextBlock>
+				</StackPanel>
+			</Button>
+			<Button x:Name="BtnDetails">
+				<StackPanel Orientation="Horizontal">
+					<Image Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Images/Icons/details.png" Width="18"></Image>
+					<TextBlock>Detalles</TextBlock>
+				</StackPanel>
+			</Button>
+			
+			
 		</StackPanel>
 		<DockPanel Grid.Row="1">
-			<StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-				<TextBlock>THIS IS RESERVED FOR FILTER AND OTHER TREE ITEMS</TextBlock>
-			</StackPanel>
-			<DataGrid x:Name="ExpedientesList" Style="{DynamicResource  DataGridStyle1}" GridLinesVisibility="None" IsReadOnly="True" SelectionChanged="ExpedientesList_SelectionChanged" SelectedItem="{DynamicResource DataGridSelectedCellStyle}" AutoGenerateColumns="False" SelectionMode="Single">
-				
-				<DataGrid.Resources>
-					<Style TargetType="{x:Type DataGridColumnHeader}">
-						<Setter Property="Background"
-										Value="LightBlue"  />
-						<Setter Property="FontWeight"
-										Value="Bold" />
-						<Setter Property="BorderThickness"
-										Value="0,0,1,2" />
-						<Setter Property="BorderBrush" Value="Black" />
-						<Setter Property="FontSize"
-										Value="16" />
-						<Setter Property="FontSize" Value="16" />
-						<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="45"									VerticalAlignment="Center">
+				<TextBlock VerticalAlignment="Center">Search:</TextBlock>
+				<TextBox x:Name="SearchBox" Width="300" Height="30" TextChanged="SearchBox_TextChanged" />
+				<Button x:Name="BtnClearSearch" Width="30" Height="30" Click="BtnClearSearch_Click">
+					<Image Margin="0,0,5,0" Source="pack://siteoforigin:,,,/Images/Icons/pencil.png" Width="18"></Image>
+				</Button>
 
-					</Style>
-				</DataGrid.Resources>
+			</StackPanel>
+			<DataGrid x:Name="ExpedientesList" GridLinesVisibility="None" IsReadOnly="True" SelectionChanged="ExpedientesList_SelectionChanged"  AutoGenerateColumns="False" SelectionMode="Single">
+				
+				
 				<DataGrid.Columns>
-					<DataGridTextColumn Header="Tipo" Binding="{Binding type}" />
-					<DataGridTextColumn Header="Nombre" Binding="{Binding name}" />
-					<DataGridTextColumn Header="Activo"
-															Binding="{Binding active}"
-															Width="*"/>
+					<DataGridTextColumn Header="Tipo" Binding="{Binding Type}" Width="120">
+					</DataGridTextColumn>
+					<DataGridTextColumn Header="Nombre" Binding="{Binding Name}" Width="*" />
 				</DataGrid.Columns>
 			</DataGrid>
 			
 		</DockPanel>
 		<ScrollViewer Grid.Row="1" Grid.Column="1">
-			
+			<StackPanel>
+				<StackPanel Orientation="Horizontal" Background="{StaticResource DarkBlueCustom}">
+					<TextBlock x:Name="TxtWebBrowserSource" 
+										 Foreground="White">
+						
+					</TextBlock>
+					
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Background="{StaticResource DarkBlueCustom}">
+					<Button x:Name="BtnWebBrowserInicio" Width="Auto" Margin="5,0" Click="BtnWebBrowserInicio_Click">
+						Inicio
+					</Button>
+					<TextBlock x:Name="TxtWebBrowser1" Text=">>" Foreground="{StaticResource LightBlueCustom}" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
+
+					<Button x:Name="BtnWebBrowser1" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser1_Click">
+						
+					</Button>
+					<TextBlock x:Name="TxtWebBrowser2" Text=">>" Foreground="{StaticResource LightBlueCustom}" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
+					<Button x:Name="BtnWebBrowser2" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser2_Click">
+						
+					</Button>
+					<TextBlock x:Name="TxtWebBrowser3" Text=">>" Foreground="{StaticResource LightBlueCustom}" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
+					<Button x:Name="BtnWebBrowser3" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser3_Click">
+						
+					</Button>
+					<TextBlock x:Name="TxtWebBrowser4" Text=">>" Foreground="{StaticResource LightBlueCustom}" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
+					<Button x:Name="BtnWebBrowser4" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser4_Click">
+						
+					</Button>
+					<TextBlock x:Name="TxtWebBrowser5" Text=">>" Foreground="{StaticResource LightBlueCustom}" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
+					<Button x:Name="BtnWebBrowser5" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser5_Click">
+						
+					</Button>
+
+				</StackPanel>
+				
+			<WebBrowser x:Name="FilesTreeBrowser" Source="C:\Users\aboga\OneDrive\enlace" 
+									LoadCompleted="FilesTreeBrowser_LoadCompleted"
+									Height="800">
+					
+				
+			</WebBrowser>
+			</StackPanel>
 		</ScrollViewer>
 	</Grid>
 </Window>

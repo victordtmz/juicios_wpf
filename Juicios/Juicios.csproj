@@ -8,24 +8,59 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="enlace.ico" />
-    <None Remove="enlace.png" />
-    <None Remove="enlace_balance.ico" />
-    <None Remove="Images\enlace.ico" />
-    <None Remove="Images\enlace.png" />
+    <None Remove="Images\enlace_balance.ico" />
+    <None Remove="Images\enlace_balance.png" />
+    <None Remove="Images\Icons\add.png" />
+    <None Remove="Images\Icons\details.png" />
+    <None Remove="Images\Icons\openFolder.png" />
+    <None Remove="Images\Icons\pencil.png" />
+    <None Remove="Images\Icons\refresh.png" />
+    <None Remove="Images\Icons\trash.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Images\enlace.ico">
+    <EmbeddedResource Include="Images\Icons\details.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Images\enlace.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="enlace.ico" />
-    <Resource Include="enlace.png" />
-    <Resource Include="enlace_balance.ico" />
+    <EmbeddedResource Include="Images\enlace_balance.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\enlace_balance.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Icons\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Icons\openFolder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Icons\pencil.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Icons\refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\Icons\trash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

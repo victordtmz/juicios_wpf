@@ -6,15 +6,16 @@
 		protected string _name = "Expediente";
 		protected bool _active = true;
 
-		public string type { get { return _type; } set { _type = value; } }
-		public string name { get { return _name; } set { _name = value; } }
-		public bool active { get { return _active; } set { _active = value; } }
+		public string Type { get { return _type; } set { _type = value; } }
+		public string Name { get { return _name; } set { _name = value; } }
+		public bool Active { get { return _active; } set { _active = value; } }
 
-		public CaseItem(string type, string name, bool active)
+		public CaseItem(string Type, string name, bool active)
 		{
-			this.type = type;
-			this.name = name;
-			this.active = active;
+			this.Type = Type;
+			this.Name = name;
+			this.Active = active;
 		}
+
 	}
 }
