@@ -4,27 +4,91 @@
              xmlns:local="clr-namespace:Juicios"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+		
 		<!--Brushes-->
 			<SolidColorBrush x:Key="DarkBlueCustom" Color="#002142" />
-			<SolidColorBrush x:Key="LightBlueCustom" Color="#7EAED9" />
-		<SolidColorBrush x:Key="OrangeCustom" Color="#F29850" />
-		<SolidColorBrush x:Key="LightWhite" Color="#ebe6e3" />
-			<!--Buttons-->
-			<Style TargetType="{x:Type Button}">
+		<!--Control colors.-->
+		<Color x:Key="WindowColor">#FFE8EDF9</Color>
+		<Color x:Key="ContentAreaColorLight">#FFC5CBF9</Color>
+		<Color x:Key="ContentAreaColorDark">#FF7381F9</Color>
+
+		<Color x:Key="DisabledControlLightColor">#FFE8EDF9</Color>
+		<Color x:Key="DisabledControlDarkColor">#FFC5CBF9</Color>
+		<Color x:Key="DisabledForegroundColor">#FF888888</Color>
+
+		<Color x:Key="SelectedBackgroundColor">#e0f9ff</Color>
+		<Color x:Key="SelectedUnfocusedColor">#FFDDDDDD</Color>
+
+		<Color x:Key="ControlLightColor">White</Color>
+		<Color x:Key="ControlMediumColor">#FF7381F9</Color>
+		<Color x:Key="ControlDarkColor">#FF211AA9</Color>
+
+		<Color x:Key="ControlMouseOverColor">#FF3843C4</Color>
+		<Color x:Key="ControlPressedColor">#FF211AA9</Color>
+
+		<Color x:Key="GlyphColor">#FF444444</Color>
+		<Color x:Key="GlyphMouseOver">sc#1, 0.004391443, 0.002428215, 0.242281124</Color>
+
+		<!--Border colors-->
+		<Color x:Key="BorderLightColor">#FFCCCCCC</Color>
+		<Color x:Key="BorderMediumColor">#FF888888</Color>
+		<Color x:Key="BorderDarkColor">#FF444444</Color>
+
+		<Color x:Key="PressedBorderLightColor">#FF888888</Color>
+		<Color x:Key="PressedBorderDarkColor">#FF444444</Color>
+
+		<Color x:Key="DisabledBorderLightColor">#FFAAAAAA</Color>
+		<Color x:Key="DisabledBorderDarkColor">#FF888888</Color>
+
+		<Color x:Key="DefaultBorderBrushDarkColor">Black</Color>
+
+		<!--Control-specific resources.-->
+		<Color x:Key="HeaderTopColor">#FFC5CBF9</Color>
+		<Color x:Key="DatagridCurrentCellBorderColor">Black</Color>
+		<Color x:Key="SliderTrackDarkColor">#FFC5CBF9</Color>
+
+		<Color x:Key="NavButtonFrameColor">#FF3843C4</Color>
+
+		<LinearGradientBrush x:Key="MenuPopupBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="{DynamicResource ControlLightColor}" Offset="0" />
+			<GradientStop Color="{DynamicResource ControlMediumColor}" Offset="0.5" />
+			<GradientStop Color="{DynamicResource ControlLightColor}" Offset="1" />
+		</LinearGradientBrush>
+
+		<LinearGradientBrush x:Key="ProgressBarIndicatorAnimatedFill" StartPoint="0,0" EndPoint="1,0">
+			<LinearGradientBrush.GradientStops>
+				<GradientStopCollection>
+					<GradientStop Color="#000000FF" Offset="0" />
+					<GradientStop Color="#600000FF" Offset="0.4" />
+					<GradientStop Color="#600000FF" Offset="0.6" />
+					<GradientStop Color="#000000FF" Offset="1" />
+				</GradientStopCollection>
+			</LinearGradientBrush.GradientStops>
+		</LinearGradientBrush>
+		<!--Buttons-->
+		<Style x:Key="ButtonConstants">
+			<Setter Property="Button.FontSize" Value="16" />
+			<Setter Property="Button.Height" Value="35" />
+			<Setter Property="Button.Width" Value="120" />
+			<Setter Property="Button.Cursor" Value="Hand" />
+			<Style.Triggers>
+				<Trigger Property="Button.IsPressed" Value="True">
+					<Setter Property="Button.FontSize" Value="14" />
+				</Trigger>
+				</Style.Triggers>
+		</Style>
+
+		<Style BasedOn="{StaticResource ButtonConstants}" TargetType="{x:Type Button}">
 				<Setter Property="Background" Value="{StaticResource DarkBlueCustom}" />
-				<Setter Property="Foreground" Value="{DynamicResource LightBlueCustom}" />
-				<Setter Property="FontSize" Value="16" />
-				<Setter Property="Height" Value="35" />
-				<Setter Property="Width" Value="120" />
-				<Setter Property="Cursor" Value="Hand" />
-				<Setter Property="BorderBrush" Value="{StaticResource DarkBlueCustom}" />
+				<Setter Property="Foreground" Value="SkyBlue" />
+				<!--<Setter Property="BorderBrush" Value="{StaticResource DarkBlueCustom}" />-->
 				<Setter Property="SnapsToDevicePixels" Value="True" />
 				
 				<!--Template-->
 				<Setter Property="Template">
 					<Setter.Value>
 						<ControlTemplate TargetType="{x:Type Button}">
-							<Border Background="{TemplateBinding Background}" BorderBrush="{StaticResource DarkBlueCustom}" BorderThickness="1">
+							<Border Background="{TemplateBinding Background}">
 								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
 							</Border>
 						</ControlTemplate>
@@ -33,27 +97,52 @@
 				<!--Triggers-->
 				<Style.Triggers>
 					<Trigger Property="IsMouseOver" Value="True">
-						<Setter Property="Foreground" Value="#F29850" />
+						<Setter Property="Foreground" Value="DarkOrange" />
 					</Trigger>
-				<Trigger Property="IsPressed" Value="True">
-					<!--<Setter Property="Background" Value="{StaticResource LightBlueCustom}" />-->
-					<!--<Setter Property="FontWeight" Value="SemiBold" />-->
-					<Setter Property="FontSize" Value="14" />
-				</Trigger>
 			</Style.Triggers>
 			</Style>
+		<Style BasedOn="{StaticResource ButtonConstants}" x:Key="ButtonIcon" TargetType="{x:Type Button}">
+			<Setter Property="Background" Value="LightSlateGray"	 />
+			<Setter Property="Width" Value="28" />
+			<Setter Property="Height" Value="28" />
 			
-			<!--DataGrid-->
-		<Style TargetType="{x:Type DataGridColumnHeader}">
-			<Setter Property="Background" Value="LightBlue" />
-			<Setter Property="FontWeight" Value="Bold" />
-			<Setter Property="BorderThickness" Value="0,0,1,2" />
-			<Setter Property="BorderBrush" Value="Black" />
-			<Setter Property="FontSize" Value="16" />
-			<Setter Property="FontSize" Value="16" />
-			<Setter Property="HorizontalContentAlignment" Value="Center" />
 
+			<!--Template-->
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Border Background="{TemplateBinding Background}">
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<!--Triggers-->
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Opacity" Value=".9" />
+				</Trigger>
+				<Trigger Property="IsPressed" Value="True">
+					<Setter Property="Opacity" Value=".7" />
+				</Trigger>
+			</Style.Triggers>
+			
 		</Style>
+
+		<!--DataGrid-->
+		<Style TargetType="{x:Type DataGridColumnHeader}">
+			<Setter Property="Background" Value="{StaticResource DarkBlueCustom}" />
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontWeight" Value="Bold" />
+			<Setter Property="BorderThickness" Value="2,0" />
+			<Setter Property="BorderBrush" Value="White" />
+			<Setter Property="FontSize" Value="16" />
+			<Setter Property="Padding" Value="15,5" />
+			<Setter Property="Cursor" Value="Hand" />
+			
+			<!--<Setter Property="HorizontalContentAlignment" Value="Center" />-->
+		</Style>
+		
 		<Style TargetType="{x:Type DataGridRow}">
 			<Style.Triggers>
 				<Trigger Property="IsMouseOver" Value="True">
@@ -85,7 +174,149 @@
 				</Trigger>
 			</Style.Triggers>
 		</Style>
-	
+		<!--Images-->
+		<Style x:Key="IconImage" TargetType="Image">
+			<Setter Property="Margin" Value="0,0,5,0" />
+		</Style>
+			
+			<!--TextBlocks-->
+		<Style TargetType="{x:Type TextBox}">
+			<Setter Property="SnapsToDevicePixels" Value="True" />
+			<Setter Property="OverridesDefaultStyle" Value="True" />
+			<Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+			<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+			<Setter Property="Width" Value="220" />
+			<!--<Setter Property="Height" Value="28" />-->
+			<Setter Property="FontSize" Value="14" />
+			<Setter Property="AllowDrop" Value="true" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type TextBoxBase}">
+						<Border Name="Border" CornerRadius="2" Padding="4" BorderThickness="1" VerticalAlignment="Center">
+							<Border.Background>
+								<SolidColorBrush Color="{DynamicResource ControlLightColor}" />
+							</Border.Background>
+							<Border.BorderBrush>
+								<SolidColorBrush Color="{DynamicResource BorderMediumColor}" />
+							</Border.BorderBrush>
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Normal" />
+									<VisualState x:Name="Disabled">
+										<Storyboard>
+											<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+												<EasingColorKeyFrame KeyTime="0" Value="{StaticResource DisabledControlLightColor}" />
+											</ColorAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="ReadOnly">
+										<Storyboard>
+											<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+												<EasingColorKeyFrame KeyTime="0" Value="{StaticResource DisabledControlLightColor}" />
+											</ColorAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="Focused">
+										
+										<Storyboard>
+											<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+												<EasingColorKeyFrame KeyTime="0" Value="{StaticResource SelectedBackgroundColor}" />
+											</ColorAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="MouseOver"/>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style TargetType="CheckBox">
+			<Setter Property="FontSize" Value="14" />
+		</Style>
+		<Style TargetType="ToggleButton">
+			<Setter Property="Cursor" Value="Hand" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ToggleButton">
+						<Grid Margin="4">
+							<Grid.ColumnDefinitions>
+								
+							</Grid.ColumnDefinitions>
+							
+							<Rectangle Width="50"
+											 Height="28"
+												 RadiusX="15"
+												 RadiusY="15"
+											 Fill="LightGreen"
+												 StrokeThickness="2"
+												 Stroke="LightGreen"
+												Grid.ColumnSpan="2"
+												 Margin="0,10">
+								
+							</Rectangle>
+							<Rectangle Width="50" 
+												 Height="28" 
+												 RadiusX="15" 
+												 RadiusY="15" 
+												 Fill="LightGray" 
+												 Opacity="{TemplateBinding MinHeight}">
+
+							</Rectangle>
+							<Rectangle Width="50" 
+												 Height="28" 
+												 RadiusX="15" 
+												 RadiusY="15" 
+												 Stroke="Black" 
+												 StrokeThickness="2"
+												 Opacity=".5">
+
+							</Rectangle>
+							<Rectangle Width="46" 
+												 Height="24" 
+												 RadiusX="13" 
+												 RadiusY="13" 
+												 Stroke="Black" 
+												 StrokeThickness="2"
+												 Opacity=".4">
+
+							</Rectangle>
+							<Rectangle Width="42" 
+												 Height="20" 
+												 RadiusX="11" 
+												 RadiusY="11" 
+												 Stroke="Black" 
+												 StrokeThickness="2" 
+												 Opacity=".2">
+
+							</Rectangle>
+							<Ellipse Width="29"
+											 Height="29"
+											 Fill="{StaticResource DarkBlueCustom}"
+											 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+											 >
+								
+							</Ellipse>
+							
+						</Grid>
+						
+						<!--<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />-->
+
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style TargetType="TextBlock">
+			<Setter Property="FontSize" Value="16" />
+
+		</Style>
 
 	</Application.Resources>
 </Application>

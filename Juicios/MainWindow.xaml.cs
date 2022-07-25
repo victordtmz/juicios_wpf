@@ -21,26 +21,30 @@ namespace Juicios
 {
 	public partial class MainWindow : Window
 	{
-		public List<CaseItem> CasesList { get; set; }
+		List<CaseItem> CasesList { get; set; }
 		string UserFolder { get; set; }
 		string EnlaceFolder { get; set; }
 		string JuiciosActivos{ get; set; }
 		string JuiciosInactivos { get; set; }
+		Cases Cases { get; set; }
 		//string Juicios
 		public MainWindow()
 		{
-			Cases cases = new Cases();
+			
+			
+			Cases = new Cases();
 			Constants constants = new Constants();
 			UserFolder = constants.GetUserFolder();
-			JuiciosActivos = EnlaceFolder + Constants.enlaceFolder;
+			EnlaceFolder = UserFolder + Constants.enlaceFolder;
 			JuiciosActivos = UserFolder + Constants.activosFolder;
-			JuiciosInactivos = UserFolder + Constants.activosFolder;
+			JuiciosInactivos = UserFolder + Constants.inactivosFolder;
 
-			CasesList = cases.GetCases();
 			InitializeComponent();
+			CasesList = Cases.GetCases(true);
 			ExpedientesList.ItemsSource = CasesList;
 		}
 
+		
 		private bool ExpedienteFilter(object obj)
 		{
 			string searchValue = SearchBox.Text;
@@ -90,7 +94,7 @@ namespace Juicios
 				path = JuiciosActivos;
 			}
 			FilesTreeBrowser.Source = new Uri(path);
-			TxtWebBrowserSource.Text = path;
+			//TxtWebBrowserSource.Text = path;
 		}
 
 
@@ -120,9 +124,12 @@ namespace Juicios
 			string startPath = GetSelectedCasePath();
 			if (!string.IsNullOrEmpty(startPath))
 			{
+				//NEED TO MAKE BROUSER RETURN UTF-8
 				string browserSource = FilesTreeBrowser.Source.ToString();
 				browserSource = browserSource.Replace(@"file:///", "");
 				browserSource = browserSource.Replace(@"/", @"\");
+				//Trimm end slashes from startPath 
+				startPath = startPath.TrimEnd('\\');
 				browserSource = browserSource.Replace(startPath, "");
 				return browserSource;
 			}
@@ -132,7 +139,7 @@ namespace Juicios
 		private void FilesTreeBrowser_LoadCompleted(object sender, NavigationEventArgs e)
 		{
 			//Always verify visibility of all items is collapsed
-			TxtWebBrowserSource.Text = FilesTreeBrowser.Source.ToString();
+			//TxtWebBrowserSource.Text = FilesTreeBrowser.Source.ToString();
 			BtnWebBrowser5.Visibility = Visibility.Collapsed;
 			BtnWebBrowser4.Visibility = Visibility.Collapsed;
 			BtnWebBrowser3.Visibility = Visibility.Collapsed;
@@ -182,8 +189,10 @@ namespace Juicios
 						break;
 				}
 				
-				SolidColorBrush orangeBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(Constants.OrangeCustom);
-				SolidColorBrush blueBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(Constants.LightBlueCustom);
+				//SolidColorBrush orangeBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(Constants.OrangeCustom);
+				//SolidColorBrush blueBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(Constants.LightBlueCustom);
+				SolidColorBrush orangeBrush = new SolidColorBrush(Colors.DarkOrange);
+				SolidColorBrush blueBrush = new SolidColorBrush(Colors.SkyBlue);
 				BtnWebBrowser5.Foreground = blueBrush;
 				BtnWebBrowser4.Foreground = blueBrush;
 				BtnWebBrowser3.Foreground = blueBrush;
@@ -297,6 +306,28 @@ namespace Juicios
 				string[] sourceparts = source.Split(@"\");
 				string newPath = path + @"\" + sourceparts[0] + @"\" + sourceparts[1] + @"\" + sourceparts[2] + @"\" + sourceparts[3] + @"\" + sourceparts[4];
 				FilesTreeBrowser.Source = new Uri(newPath);
+			}
+		}
+
+		private void ToggleActivos_Checked(object sender, RoutedEventArgs e)
+		{
+			ToggleActivos.HorizontalAlignment = HorizontalAlignment.Left;
+			ToggleActivos.MinHeight = 0;
+			if(ExpedientesList != null)
+			{
+				CasesList = Cases.GetCases(true);
+				ExpedientesList.ItemsSource = CasesList;
+			}
+		}
+
+		private void ToggleActivos_Unchecked(object sender, RoutedEventArgs e)
+		{
+			ToggleActivos.HorizontalAlignment = HorizontalAlignment.Right;
+			ToggleActivos.MinHeight = 1;
+			if (ExpedientesList != null)
+			{
+				CasesList = Cases.GetCases(false);
+				ExpedientesList.ItemsSource = CasesList;
 			}
 		}
 	}
