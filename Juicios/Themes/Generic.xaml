@@ -5,7 +5,8 @@
     xmlns:cc="clr-namespace:EnlaceCustomControls"	
 	
 	>
-
+<!-- BRUSHES -->
+	
 	<SolidColorBrush x:Key="DarkBlueCustom" Color="#002142" />
 	<RadialGradientBrush x:Key="ActiveRadialGradient">
 		<GradientStop Color="White" Offset="0.0"/>
@@ -17,7 +18,7 @@
 		<GradientStop Color="#5e5e5e" Offset="1.0"/>
 	</RadialGradientBrush>
 	
-	
+	<!--g!______________Toggle Switch__________________________-->
 	<Style TargetType="{x:Type cc:ToggleSwitch}">
 		<Setter Property="Cursor" Value="Hand"/>
 		<Setter Property="Template">
@@ -66,5 +67,123 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+	</Style><!-- END TOGGLE SWITCH -->
+
+	<!--Buttons-->
+	<!-- G! ____________________ H1 - BUTTON   _________________________ -->
+	<!--Images-->
+	<Style x:Key="IconImage" TargetType="Image">
+		<Setter Property="Margin" Value="0,0,5,0" />
 	</Style>
-</ResourceDictionary>
+
+	<Style x:Key="ButtonConstants" TargetType="{x:Type Button}">
+		<Setter Property="FontSize" Value="16" />
+		<Setter Property="Height" Value="35" />
+		<Setter Property="Cursor" Value="Hand" />
+		<Setter Property="Padding" Value="50"/>
+
+	</Style>
+	<!-- G! ____________________ H1 TEXT - BUTTON   _________________________ -->
+
+	<Style BasedOn="{StaticResource ButtonConstants}" TargetType="{x:Type cc:ButtonH1Text}">
+		<Setter Property="Foreground" Value="SkyBlue" />
+		<!--<Setter Property="BorderBrush" Value="{StaticResource DarkBlueCustom}" />-->
+		<Setter Property="SnapsToDevicePixels" Value="True" />
+
+		<!--Template-->
+		<Setter Property="Template">
+			<Setter.Value>
+
+				<ControlTemplate TargetType="{x:Type cc:ButtonH1Text}">
+					<Grid Background="{StaticResource DarkBlueCustom}" x:Name="Wrapping" HorizontalAlignment="Center">
+						<TextBlock x:Name="TxtBlock" Grid.Column="1" Text="{TemplateBinding Content}" VerticalAlignment="Center" Foreground="SkyBlue" Margin="15,0" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="TxtBlock" Property="Foreground" Value="DarkOrange" />
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="TxtBlock" Property="FontSize" Value="15" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+
+				</ControlTemplate>
+
+			</Setter.Value>
+
+		</Setter>
+
+	</Style>
+	<!-- G! ____________________ END H1 TEXT - BUTTON   _________________________ -->
+	<!-- G! ____________________ H1 - BUTTON   _________________________ -->
+
+	<Style BasedOn="{StaticResource ButtonConstants}" TargetType="{x:Type cc:ButtonH1}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type cc:ButtonH1}">
+					<Grid Background="{StaticResource DarkBlueCustom}" x:Name="Wrapping" HorizontalAlignment="Center">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="Auto"/>
+						</Grid.ColumnDefinitions>
+						<Image x:Name="Img" Source="{Binding RelativeSource={RelativeSource FindAncestor, 
+                       AncestorType={x:Type cc:ButtonH1}}, 
+                       Path=Source}" VerticalAlignment="Center"
+										 Margin="15,0,7,0" Width="18" />
+						<TextBlock x:Name="TxtBlock" Grid.Column="1" Text="{TemplateBinding Content}" VerticalAlignment="Center" Foreground="SkyBlue" Margin="0,0,15,0" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="TxtBlock" Property="Foreground" Value="DarkOrange" />
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="TxtBlock" Property="FontSize" Value="15" />
+							<Setter TargetName="Img" Property="Width" Value="17" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+
+				</ControlTemplate>
+
+			</Setter.Value>
+
+		</Setter>
+
+	</Style>
+	<!-- G! ____________________ END H1 - BUTTON   _________________________
+
+	
+	G! ____________________ ICON - BUTTON   _________________________ -->
+	<Style BasedOn="{StaticResource ButtonConstants}" TargetType="{x:Type cc:ButtonIcon}">
+		<Setter Property="Width" Value="28" />
+		<Setter Property="Height" Value="28" />
+		
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type cc:ButtonIcon}">
+					<Grid Background="{StaticResource DarkBlueCustom}" x:Name="Wrapping">
+						<Image x:Name="Img" Source="{Binding RelativeSource={RelativeSource FindAncestor, 
+                       AncestorType={x:Type cc:ButtonIcon}}, 
+                       Path=Source}" VerticalAlignment="Center"
+										 Width="18" />
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Opacity" Value=".9" />
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter TargetName="Img" Property="Width" Value="17" />
+							<Setter Property="Opacity" Value=".7" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+
+				</ControlTemplate>
+
+			</Setter.Value>
+
+		</Setter>
+
+	</Style>
+		<!-- G! ____________________ END ICON - BUTTON   _________________________ -->
+
+</ResourceDictionary> 

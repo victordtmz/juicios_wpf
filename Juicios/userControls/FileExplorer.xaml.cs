@@ -152,7 +152,10 @@ namespace Juicios.userControls
 			private void BtnWebBrowserInicio_Click(object sender, RoutedEventArgs e)
 			{
 				string path = this.Source;
+			if (!string.IsNullOrEmpty(path))
+			{
 				FilesTreeBrowser.Source = new Uri(path);
+			}
 			}
 
 			private void BtnWebBrowser1_Click(object sender, RoutedEventArgs e)

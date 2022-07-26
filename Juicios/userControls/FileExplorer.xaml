@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+						 xmlns:ECC="clr-namespace:EnlaceCustomControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 	<!--<UserControl.Resources>
@@ -15,30 +16,22 @@
 		  <StackPanel Orientation="Horizontal" 
 									Background="{StaticResource DarkBlueCustom}"
 									DockPanel.Dock="Top">
-			<Button x:Name="BtnWebBrowserInicio" Width="Auto" Margin="5,0" Click="BtnWebBrowserInicio_Click">
-				Inicio
-			</Button>
+			<ECC:ButtonH1Text x:Name="BtnWebBrowserInicio" Click="BtnWebBrowserInicio_Click" Content="Inicio"/>
+			
 			<TextBlock x:Name="TxtWebBrowser1" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0" />
+			<ECC:ButtonH1Text x:Name="BtnWebBrowser1" Click="BtnWebBrowser1_Click" Visibility="Collapsed"/>
+			
+				<TextBlock x:Name="TxtWebBrowser2" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
+			<ECC:ButtonH1Text x:Name="BtnWebBrowser2" Click="BtnWebBrowser2_Click" Visibility="Collapsed"/>
 
-			<Button x:Name="BtnWebBrowser1" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser1_Click" >
-
-			</Button>
-			<TextBlock x:Name="TxtWebBrowser2" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
-			<Button x:Name="BtnWebBrowser2" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser2_Click" >
-
-			</Button>
 			<TextBlock x:Name="TxtWebBrowser3" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
-			<Button x:Name="BtnWebBrowser3" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser3_Click">
+			<ECC:ButtonH1Text x:Name="BtnWebBrowser3" Click="BtnWebBrowser3_Click" Visibility="Collapsed"/>
 
-			</Button>
 			<TextBlock x:Name="TxtWebBrowser4" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
-			<Button x:Name="BtnWebBrowser4" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser4_Click">
+			<ECC:ButtonH1Text x:Name="BtnWebBrowser4" Click="BtnWebBrowser4_Click" Visibility="Collapsed"/>
 
-			</Button>
 			<TextBlock x:Name="TxtWebBrowser5" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
-			<Button x:Name="BtnWebBrowser5" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser5_Click">
-
-			</Button>
+			<ECC:ButtonH1Text x:Name="BtnWebBrowser5" Click="BtnWebBrowser5_Click" Visibility="Collapsed"/>
 
 		</StackPanel>
 		<WebBrowser x:Name="FilesTreeBrowser" LoadCompleted="FilesTreeBrowser_LoadCompleted" 

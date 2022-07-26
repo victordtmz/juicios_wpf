@@ -28,42 +28,23 @@
 		</Grid.RowDefinitions>
 		<StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Background="{StaticResource DarkBlueCustom}">
 
-			<Button x:Name="BtnRefresh">
-				<StackPanel Orientation="Horizontal">
-					<Image Style="{StaticResource IconImage}" Source="pack://siteoforigin:,,,/Images/Icons/refresh.png" Width="18" />
-					<TextBlock>Refresh</TextBlock>
-				</StackPanel>
-			</Button>
-			<Button x:Name="BtnOpen">
-				<StackPanel Orientation="Horizontal">
-					<Image Style="{StaticResource IconImage}" Source="pack://siteoforigin:,,,/Images/Icons/openFolder.png" Width="18" />
-					<TextBlock>Abrir Carpeta</TextBlock>
-				</StackPanel>
-			</Button>
-			<Button x:Name="BtnNew">
-				<StackPanel Orientation="Horizontal">
-					<Image Style="{StaticResource IconImage}" Source="pack://siteoforigin:,,,/Images/Icons/add.png" Width="18"></Image>
-					<TextBlock>Nuevo</TextBlock>
-				</StackPanel>
-			</Button>
-			<Button x:Name="BtnDelete">
-				<StackPanel Orientation="Horizontal">
-					<Image Style="{StaticResource IconImage}" Source="pack://siteoforigin:,,,/Images/Icons/trash.png" Width="18"></Image>
-					<TextBlock>Eliminar</TextBlock>
-				</StackPanel>
-			</Button>
-			<Button x:Name="BtnEdit">
-				<StackPanel Orientation="Horizontal">
-					<Image Style="{StaticResource IconImage}" Source="pack://siteoforigin:,,,/Images/Icons/pencil.png" Width="18"></Image>
-					<TextBlock>Editar</TextBlock>
-				</StackPanel>
-			</Button>
-			<Button x:Name="BtnDetails">
-				<StackPanel Orientation="Horizontal">
-					<Image Style="{StaticResource IconImage}" Source="pack://siteoforigin:,,,/Images/Icons/details.png" Width="18"></Image>
-					<TextBlock>Detalles</TextBlock>
-				</StackPanel>
-			</Button>
+			<ECC:ButtonH1 x:Name="BtnRefresh" Source="pack://siteoforigin:,,,/Images/Icons/refresh.png" 
+										Width="110" Content="Refresh"/>
+
+			<ECC:ButtonH1 x:Name="BtnOpenFolder" Source="pack://siteoforigin:,,,/Images/Icons/openFolder.png" 
+										Width="130" Content="Abrir Carpeta"/>
+
+			<ECC:ButtonH1 x:Name="BtnNew" Source="pack://siteoforigin:,,,/Images/Icons/add.png" 
+										Width="110" Content="Nuevo"/>
+
+			<ECC:ButtonH1 x:Name="BtnDelete" Source="pack://siteoforigin:,,,/Images/Icons/trash.png" 
+										Width="110" Content="Eliminar"/>
+
+			<ECC:ButtonH1 x:Name="BtnEdit" Source="pack://siteoforigin:,,,/Images/Icons/pencil.png" 
+										Width="110" Content="Editar"/>
+
+			<ECC:ButtonH1 x:Name="BtnDetails" Source="pack://siteoforigin:,,,/Images/Icons/details.png" 
+										Width="110" Content="Detalles"/>
 
 		</StackPanel>
 		<DockPanel Grid.Row="1">
@@ -71,9 +52,10 @@
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" VerticalAlignment="Center" Margin="5">
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0">Search:</TextBlock>
 				<TextBox x:Name="SearchBox" TextChanged="SearchBox_TextChanged" />
-				<Button Style="{StaticResource ButtonIcon}" x:Name="BtnClearSearch"  Click="BtnClearSearch_Click">
-					<Image Source="pack://siteoforigin:,,,/Images/Icons/clear-filter.png" Width="18"></Image>
-				</Button>
+				<ECC:ButtonIcon  x:Name="BtnClearSearch"
+												 Source="pack://siteoforigin:,,,/Images/Icons/clear-filter.png" 
+												 Click="BtnClearSearch_Click"/>
+				
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0">Activos:</TextBlock>
 
 				<!--<ToggleButton x:Name="ToggleActivos"
