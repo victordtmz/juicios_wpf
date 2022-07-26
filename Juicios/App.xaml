@@ -71,11 +71,7 @@
 			<Setter Property="Button.Height" Value="35" />
 			<Setter Property="Button.Width" Value="120" />
 			<Setter Property="Button.Cursor" Value="Hand" />
-			<Style.Triggers>
-				<Trigger Property="Button.IsPressed" Value="True">
-					<Setter Property="Button.FontSize" Value="14" />
-				</Trigger>
-				</Style.Triggers>
+			
 		</Style>
 
 		<Style BasedOn="{StaticResource ButtonConstants}" TargetType="{x:Type Button}">
@@ -99,8 +95,13 @@
 					<Trigger Property="IsMouseOver" Value="True">
 						<Setter Property="Foreground" Value="DarkOrange" />
 					</Trigger>
+				
+				<Trigger Property="IsPressed" Value="True">
+					<Setter Property="FontSize" Value="14" />
+					<Setter Property="Opacity" Value=".7" />
+				</Trigger>
 			</Style.Triggers>
-			</Style>
+		</Style>
 		<Style BasedOn="{StaticResource ButtonConstants}" x:Key="ButtonIcon" TargetType="{x:Type Button}">
 			<Setter Property="Background" Value="LightSlateGray"	 />
 			<Setter Property="Width" Value="28" />

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Juicios.Classes
+namespace Juicios
 {
 	public class Constants
 	{

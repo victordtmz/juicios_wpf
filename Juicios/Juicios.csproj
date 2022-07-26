@@ -71,4 +71,8 @@
     <Folder Include="CcontrolTemplates\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1264.42" />
+  </ItemGroup>
+
 </Project>

@@ -5,6 +5,9 @@
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:local="clr-namespace:Juicios"
 				xmlns:controls="clr-namespace:Juicios.userControls"
+						xmlns:ECC="clr-namespace:EnlaceCustomControls"
+				
+				xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
 				mc:Ignorable="d" Title="ENLACE LLC - JUICIOS" Icon="pack://siteoforigin:,,,/Images/enlace_balance.ico" WindowState="Maximized"
 				
 				Height="720"
@@ -61,11 +64,10 @@
 					<TextBlock>Detalles</TextBlock>
 				</StackPanel>
 			</Button>
-			
-			
+
 		</StackPanel>
 		<DockPanel Grid.Row="1">
-			
+
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" VerticalAlignment="Center" Margin="5">
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0">Search:</TextBlock>
 				<TextBox x:Name="SearchBox" TextChanged="SearchBox_TextChanged" />
@@ -74,68 +76,31 @@
 				</Button>
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0">Activos:</TextBlock>
 
-				<ToggleButton x:Name="ToggleActivos"
+				<!--<ToggleButton x:Name="ToggleActivos"
 										ToggleButton.Checked="ToggleActivos_Checked" ToggleButton.Unchecked="ToggleActivos_Unchecked"
 											IsChecked="True"
 											MinHeight="0"
 											HorizontalAlignment="Left"
-											>Activos</ToggleButton>
+											>Activos
+				</ToggleButton>-->
+				<ECC:ToggleSwitch x:Name="ToggleActivos"
+										ToggleButton.Checked="ToggleActivos_Checked" ToggleButton.Unchecked="ToggleActivos_Unchecked"
+											IsChecked="True"/>
+				
+
 			</StackPanel>
 			<DataGrid x:Name="ExpedientesList" GridLinesVisibility="None" IsReadOnly="True" SelectionChanged="ExpedientesList_SelectionChanged"  AutoGenerateColumns="False" SelectionMode="Single">
-				
-				
 				<DataGrid.Columns>
 					<DataGridTextColumn Header="Tipo" Binding="{Binding Type}" Width="120">
 					</DataGridTextColumn>
 					<DataGridTextColumn Header="Nombre" Binding="{Binding Name}" Width="*" />
 				</DataGrid.Columns>
 			</DataGrid>
-			
+
 		</DockPanel>
-		<ScrollViewer Grid.Row="1" Grid.Column="1">
-			<StackPanel>
-				<StackPanel Orientation="Horizontal" Background="{StaticResource DarkBlueCustom}">
-					<!--<TextBlock x:Name="TxtWebBrowserSource" 
-										 Foreground="White">
-						
-					</TextBlock>-->
-					
-				</StackPanel>
-				<StackPanel Orientation="Horizontal" Background="{StaticResource DarkBlueCustom}">
-					<Button x:Name="BtnWebBrowserInicio" Width="Auto" Margin="5,0" Click="BtnWebBrowserInicio_Click">
-						Inicio
-					</Button>
-					<TextBlock x:Name="TxtWebBrowser1" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
+		<controls:FileExplorer x:Name="FilesTreeBrowser" Grid.Row="1" Grid.Column="1">
 
-					<Button x:Name="BtnWebBrowser1" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser1_Click">
-						
-					</Button>
-					<TextBlock x:Name="TxtWebBrowser2" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
-					<Button x:Name="BtnWebBrowser2" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser2_Click">
-						
-					</Button>
-					<TextBlock x:Name="TxtWebBrowser3" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
-					<Button x:Name="BtnWebBrowser3" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser3_Click">
-						
-					</Button>
-					<TextBlock x:Name="TxtWebBrowser4" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
-					<Button x:Name="BtnWebBrowser4" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser4_Click">
-						
-					</Button>
-					<TextBlock x:Name="TxtWebBrowser5" Text=">>" Foreground="LightBlue" VerticalAlignment="Center" Visibility="Collapsed" Margin="5,0"/>
-					<Button x:Name="BtnWebBrowser5" Visibility="Collapsed" Width="Auto" Margin="5,0" Click="BtnWebBrowser5_Click">
-						
-					</Button>
+		</controls:FileExplorer>
 
-				</StackPanel>
-				
-			<WebBrowser x:Name="FilesTreeBrowser" Source="C:\Users\aboga\OneDrive\enlace" 
-									LoadCompleted="FilesTreeBrowser_LoadCompleted"
-									Height="800">
-					
-				
-			</WebBrowser>
-			</StackPanel>
-		</ScrollViewer>
 	</Grid>
 </Window>

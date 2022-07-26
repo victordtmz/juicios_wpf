@@ -1,4 +1,4 @@
-﻿namespace Juicios.Classes
+﻿namespace Juicios
 {
 	public class CaseItem
 	{

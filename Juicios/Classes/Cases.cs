@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Juicios;
 
-namespace Juicios.Classes
+namespace Juicios
 {
 	
 
