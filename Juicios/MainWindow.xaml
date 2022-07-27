@@ -5,7 +5,7 @@
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:local="clr-namespace:Juicios"
 				xmlns:controls="clr-namespace:Juicios.userControls"
-						xmlns:ECC="clr-namespace:EnlaceCustomControls"
+						xmlns:cc="clr-namespace:EnlaceCustomControls"
 				
 				xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
 				mc:Ignorable="d" Title="ENLACE LLC - JUICIOS" Icon="pack://siteoforigin:,,,/Images/enlace_balance.ico" WindowState="Maximized"
@@ -28,22 +28,22 @@
 		</Grid.RowDefinitions>
 		<StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Background="{StaticResource DarkBlueCustom}">
 
-			<ECC:ButtonH1 x:Name="BtnRefresh" Source="pack://siteoforigin:,,,/Images/Icons/refresh.png" 
+			<cc:ButtonH1 x:Name="BtnRefresh" Source="pack://siteoforigin:,,,/Images/Icons/refresh.png" 
 										Width="110" Content="Refresh"/>
 
-			<ECC:ButtonH1 x:Name="BtnOpenFolder" Source="pack://siteoforigin:,,,/Images/Icons/openFolder.png" 
+			<cc:ButtonH1 x:Name="BtnOpenFolder" Source="pack://siteoforigin:,,,/Images/Icons/openFolder.png" 
 										Width="130" Content="Abrir Carpeta"/>
 
-			<ECC:ButtonH1 x:Name="BtnNew" Source="pack://siteoforigin:,,,/Images/Icons/add.png" 
+			<cc:ButtonH1 x:Name="BtnNew" Source="pack://siteoforigin:,,,/Images/Icons/add.png" 
 										Width="110" Content="Nuevo"/>
 
-			<ECC:ButtonH1 x:Name="BtnDelete" Source="pack://siteoforigin:,,,/Images/Icons/trash.png" 
+			<cc:ButtonH1 x:Name="BtnDelete" Source="pack://siteoforigin:,,,/Images/Icons/trash.png" 
 										Width="110" Content="Eliminar"/>
 
-			<ECC:ButtonH1 x:Name="BtnEdit" Source="pack://siteoforigin:,,,/Images/Icons/pencil.png" 
+			<cc:ButtonH1 x:Name="BtnEdit" Source="pack://siteoforigin:,,,/Images/Icons/pencil.png" 
 										Width="110" Content="Editar"/>
 
-			<ECC:ButtonH1 x:Name="BtnDetails" Source="pack://siteoforigin:,,,/Images/Icons/details.png" 
+			<cc:ButtonH1 x:Name="BtnDetails" Source="pack://siteoforigin:,,,/Images/Icons/details.png" 
 										Width="110" Content="Detalles"/>
 
 		</StackPanel>
@@ -51,12 +51,14 @@
 
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" VerticalAlignment="Center" Margin="5">
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0">Search:</TextBlock>
-				<TextBox x:Name="SearchBox" TextChanged="SearchBox_TextChanged" />
-				<ECC:ButtonIcon  x:Name="BtnClearSearch"
+				<cc:TxtBox x:Name="SearchBox" TextChanged="SearchBox_TextChanged" />
+				
+				<cc:ButtonIcon  x:Name="BtnClearSearch"
 												 Source="pack://siteoforigin:,,,/Images/Icons/clear-filter.png" 
 												 Click="BtnClearSearch_Click"/>
 				
 				<TextBlock VerticalAlignment="Center" Margin="10,0,0,0">Activos:</TextBlock>
+
 
 				<!--<ToggleButton x:Name="ToggleActivos"
 										ToggleButton.Checked="ToggleActivos_Checked" ToggleButton.Unchecked="ToggleActivos_Unchecked"
@@ -65,7 +67,7 @@
 											HorizontalAlignment="Left"
 											>Activos
 				</ToggleButton>-->
-				<ECC:ToggleSwitch x:Name="ToggleActivos"
+				<cc:ToggleSwitch x:Name="ToggleActivos"
 										ToggleButton.Checked="ToggleActivos_Checked" ToggleButton.Unchecked="ToggleActivos_Unchecked"
 											IsChecked="True"/>
 				

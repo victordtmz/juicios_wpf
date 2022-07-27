@@ -17,7 +17,21 @@
 		<GradientStop Color="#8e8e8e" Offset="0.6"/>
 		<GradientStop Color="#5e5e5e" Offset="1.0"/>
 	</RadialGradientBrush>
-	
+
+	<Color x:Key="BaseBlue">#FF0078D4</Color>
+	<Color x:Key="WidgetActiveBorder">#FF0078D4</Color>
+
+	<Color x:Key="WidgetInactiveBorder">#FFC4C4C4</Color>
+
+	<Color x:Key="WidgetInactiveBackground">#FFF7F7F7</Color>
+
+	<Color x:Key="WidgetHoverBorder">#FF1F1F1F</Color>
+	<Color x:Key="WidgetHoverBackground">#FFFAFAFA</Color>
+
+	<Color x:Key="WidgetDisabledBorder" >#FFC4C4C4</Color>
+	<Color x:Key="WidgetDisabledBackground" >#FFC2C2C2</Color>
+	<Color x:Key="WidgetDisabledForeground" >#FF747474</Color>
+
 	<!--g!______________Toggle Switch__________________________-->
 	<Style TargetType="{x:Type cc:ToggleSwitch}">
 		<Setter Property="Cursor" Value="Hand"/>
@@ -185,5 +199,94 @@
 
 	</Style>
 		<!-- G! ____________________ END ICON - BUTTON   _________________________ -->
+	<!-- G! ____________________ TEXTBOX   _________________________ -->
+	<Style TargetType="{x:Type cc:TxtBox}" >
+		<Setter Property="SnapsToDevicePixels" Value="True" />
+		<Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+		<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+		<Setter Property="Width" Value="220" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="AllowDrop" Value="true" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type cc:TxtBox}">
 
+					<Border Name="Border" Padding="4" BorderThickness="2.5" VerticalAlignment="Center">
+						<Border.Background>
+							<SolidColorBrush Color="{DynamicResource WidgetInactiveBackground}" />
+						</Border.Background>
+						<Border.BorderBrush>
+							<SolidColorBrush Color="{DynamicResource WidgetInactiveBorder}" />
+						</Border.BorderBrush>
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal" />
+								<VisualState x:Name="Disabled">
+									<Storyboard>
+										<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(BorderBrush).
+                    (SolidColorBrush.Color)">
+											<EasingColorKeyFrame KeyTime="0.0:0:1" Value="{StaticResource WidgetDisabledBorder}" />
+										</ColorAnimationUsingKeyFrames>
+										<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+											<EasingColorKeyFrame KeyTime="0.0:0:1" Value="{StaticResource WidgetDisabledBackground}" />
+										</ColorAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="ReadOnly">
+									<Storyboard>
+										<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+											<EasingColorKeyFrame KeyTime="0" Value="{StaticResource WidgetInactiveBorder}" />
+										</ColorAnimationUsingKeyFrames>
+										<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(BorderBrush).
+                    (SolidColorBrush.Color)">
+											<EasingColorKeyFrame KeyTime="0.0:0:1" Value="{StaticResource WidgetHoverBorder}" />
+										</ColorAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Focused">
+									<Storyboard>
+
+										<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(BorderBrush).
+                    (SolidColorBrush.Color)">
+											<EasingColorKeyFrame KeyTime="0.0:0:1" Value="{StaticResource WidgetActiveBorder}" />
+										</ColorAnimationUsingKeyFrames>
+										<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+											<EasingColorKeyFrame KeyTime="0.0:0:1" Value="White" />
+										</ColorAnimationUsingKeyFrames>
+
+									</Storyboard>
+
+								</VisualState>
+
+								<VisualState x:Name="MouseOver">
+									<Storyboard>
+
+										<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(BorderBrush).
+                    (SolidColorBrush.Color)">
+											<EasingColorKeyFrame KeyTime="0.0:0:1" Value="{StaticResource WidgetHoverBorder}" />
+										</ColorAnimationUsingKeyFrames>
+										<ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+											<EasingColorKeyFrame KeyTime="0.0:0:1" Value="{StaticResource WidgetHoverBackground}" />
+										</ColorAnimationUsingKeyFrames>
+
+									</Storyboard>
+
+								</VisualState>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+						<ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Foreground" Value="#FF747474" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 </ResourceDictionary> 
